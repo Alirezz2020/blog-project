@@ -1,0 +1,11 @@
+<!-- templates/blog/post_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Are you sure you want to delete "{{ post.title }}"?</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+    </form>
+    <a href="{% url 'blog:post_list' %}">Cancel</a>
+{% endblock %}

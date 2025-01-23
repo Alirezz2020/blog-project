@@ -1,0 +1,32 @@
+
+{% load static %}
+{% block content %}
+
+    
+    
+ <!-- templates/navbar.html -->
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="{% url 'home:home' %}">BlogSite</a>
+    </div>
+    <div class="navbar-links">
+        {% if user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}">Logout</a>
+        <a href="{% url 'accounts:profile' %}">Profile</a>
+            <a href="{% url 'blog:post_list' %}">Posts</a>
+        
+        {% else %}
+        <a href="{% url 'accounts:register' %}">Register</a>
+        
+        <a href="{% url 'accounts:login' %}">Login</a>
+        {% endif %}
+    </div>
+    <div class="navbar-menu-toggle" id="navbar-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+
+
+{% endblock %}

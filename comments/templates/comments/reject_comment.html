@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Reject Comment</h2>
+  <p>Are you sure you want to reject this comment?</p>
+  <p><strong>{{ object.content }}</strong></p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Reject</button>
+    <a href="{% url 'comments:pending_comments' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

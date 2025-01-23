@@ -1,0 +1,120 @@
+/* static/css/styles.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand a {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-links a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: #ff6f61;
+}
+
+.navbar-menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.navbar-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-links a {
+        margin: 0.5rem 0;
+    }
+
+    .navbar-menu-toggle {
+        display: block;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+}
+/* static/css/styles.css */
+.post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.post-item {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-item h2 {
+    font-size: 1.6rem;
+}
+
+.post-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.post-item a:hover {
+    color: #ff6f61;
+}
+/* static/css/styles.css */
+.post-detail {
+    margin-top: 2rem;
+}
+
+.post-detail h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.post-detail p {
+    font-size: 1.2rem;
+}
+/* static/style.css */
+
+.like-btn, .dislike-btn {
+  padding: 5px 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.like-btn:hover {
+  background-color: #d4edda; /* Greenish hover for like */
+}
+
+.dislike-btn:hover {
+  background-color: #f8d7da; /* Reddish hover for dislike */
+}

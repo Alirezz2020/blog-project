@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="card shadow p-4 text-center" style="max-width: 400px; width: 100%;">
+        <h3 class="text-danger mb-4"><i class=btn-delete></i> Logout</h3>
+        <p class="mb-4">Are you sure you want to log out?</p>
+        <form method="post" action="{% url 'accounts:logout_confirm' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        <a href="{% url 'home:home' %}" class="btn btn-secondary mt-2">Cancel</a>
+    </div>
+
+{% endblock %}

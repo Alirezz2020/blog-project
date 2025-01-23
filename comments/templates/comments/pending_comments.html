@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Pending Comments</h2>
+  <ul>
+    {% for comment in comments %}
+      <li>
+        <strong>{{ comment.user.username }}</strong> on
+        <a href="{% url 'blog:post_detail' pk=comment.post.id %}">
+          {{ comment.post.title }}
+        </a>
+        <p>{{ comment.content }}</p>
+        <a href="{% url 'comments:approve_comment' comment.id %}">Approve</a>
+       <a href="{% url 'comments:reject_comment' comment.id %}" class="btn btn-danger">Reject</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

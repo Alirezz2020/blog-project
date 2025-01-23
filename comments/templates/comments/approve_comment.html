@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Approve Comment</h2>
+  <p>Are you sure you want to approve this comment?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Approve</button>
+  </form>
+{% endblock %}

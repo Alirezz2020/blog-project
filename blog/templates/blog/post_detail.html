@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <li>
+        <h2>{{ post.title }}</h2>
+        <p>Author: {{ post.author.username }}</p>
+        <p>Category:
+            {% if post.category %}
+                {{ post.category.name }}
+            {% else %}
+                Uncategorized
+            {% endif %}
+        </p>
+        <p>Status:
+            {% if post.published %}
+                Published
+            {% else %}
+                Draft
+            {% endif %}
+        </p>
+        <p>Content{{ post.content }}</p>
+        <p>Published: {{ post.published }}</p>
+        <p> Created at :{{ post.created_at|date:"M d, Y" }}</p>
+        <p>Updated at: {{ post.updated_at|date:"M d, Y" }}</p>
+    </li>
+
+<h2>Comments</h2>
+<ul>
+  {% for comment in comments %}
+    <li>
+      <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+      <p>Posted on {{ comment.created_at|date:"M d, Y"  }}</p>
+
+      <!-- Reply Button -->
+      <button class="btn btn-link" onclick="document.getElementById('reply-form-{{ comment.id }}').style.display='block';">
+        Reply
+      </button>
+
+      <!-- Reply Form -->
+      <form id="reply-form-{{ comment.id }}" action="{% url 'comments:add_comment' post.id %}" method="post" style="display: none;">
+        {% csrf_token %}
+        <textarea name="content" rows="2" class="form-control" placeholder="Write your reply..."></textarea>
+        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+      </form>
+
+      <!-- Display Replies (including replies to replies) -->
+      {% if comment.replies.all %}
+        <ul>
+          {% for reply in comment.replies.all %}
+            <li>
+              <strong>{{ reply.user.username }}</strong>: {{ reply.content }}
+              <p>Posted on {{ reply.created_at|date:"M d, Y"  }}</p>
+
+              <!-- Reply Button for this reply -->
+              <button class="btn btn-link" onclick="document.getElementById('reply-form-{{ reply.id }}').style.display='block';">
+                Reply
+              </button>
+
+              <!-- Reply Form for this reply -->
+              <form id="reply-form-{{ reply.id }}" action="{% url 'comments:add_comment' post.id %}" method="post" style="display: none;">
+                {% csrf_token %}
+                <textarea name="content" rows="2" class="form-control" placeholder="Write your reply..."></textarea>
+                <input type="hidden" name="parent_id" value="{{ reply.id }}">
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+              </form>
+
+              <!-- Display replies to replies (nested replies) -->
+              {% if reply.replies.all %}
+                <ul>
+                  {% for nested_reply in reply.replies.all %}
+                    <li>
+                      <strong>{{ nested_reply.user.username }}</strong>: {{ nested_reply.content }}
+                      <p>Posted on {{ nested_reply.created_at|date:"M d, Y"  }}</p>
+
+                    </li>
+                  {% endfor %}
+                </ul>
+
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+      <hr>
+  {% endfor %}
+</ul>
+    <hr>
+
+<!-- Add a Top-Level Comment -->
+<h3>Leave a Comment</h3>
+<form action="{% url 'comments:add_comment' post.id %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+{% endblock %}

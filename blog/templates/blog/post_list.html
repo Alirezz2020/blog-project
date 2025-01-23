@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Posts</h1>
+    <ul>
+        {% for post in posts %}
+
+            <li>
+                <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+            <p>author : {{ post.author }}</p>
+
+                <p>Category:
+                    {% if post.category %}
+                        {{ post.category.name }}
+                    {% else %}
+                        Uncategorized
+                    {% endif %}
+                </p>
+
+                <p>Created at; {{ post.created_at|date:"M d, Y" }}</p>
+            <p>Content :{{ post.content|truncatewords:30 }}</p>
+
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <a href="{% url 'blog:post_create' %}">Create New Post</a>
+{% endblock %}

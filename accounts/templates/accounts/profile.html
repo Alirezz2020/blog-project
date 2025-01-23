@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150" height="150">
+        <hr>
+    {% endif %}
+
+    <h2>Your Posts</h2>
+{% if user_posts %}
+    <ul>
+        {% for post in user_posts %}
+            <li>
+                <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not created any posts yet.</p>
+{% endif %}<br>
+    <hr>
+
+    <a href="{% url 'comments:pending_comments' %}" class="btn btn-primary">View Pending Comments</a><br>
+    <hr>
+    <a href="{% url 'accounts:password_change' %}" class="btn">Change Password</a><br>
+    <hr>
+    <a href="{% url 'accounts:profile_update' %}">Update Profile</a>
+
+
+
+
+
+{% endblock %}

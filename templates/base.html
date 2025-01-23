@@ -1,0 +1,29 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BlogProject{% endblock %}</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <!-- JS Link -->
+    <script src="{% static 'js/script.js' %}" defer></script>
+
+</head>
+<body>
+<form style="display: none;">{% csrf_token %}</form>
+
+    {% include 'navbar.html' %}
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+ <footer>
+    <!-- Footer content -->
+    <p>© 2025 My Site</p>
+  </footer>
+</body>
+</html>
