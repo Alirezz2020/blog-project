@@ -1,0 +1,18 @@
+<!-- likes/templates/likes/favorite_posts.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ user.username }}'s Favorite Posts</h1>
+
+  {% if favorite_posts %}
+    <ul>
+      {% for post in favorite_posts %}
+        <li>
+          <a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't favorited any posts yet.</p>
+  {% endif %}
+{% endblock %}

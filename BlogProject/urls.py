@@ -10,11 +10,13 @@ handler403 = 'accounts.views.custom_403'
 handler400 = 'accounts.views.custom_400'
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('', include('home.urls', namespace='home')),
     path('comments/', include('comments.urls', namespace='comments')),
+    path('like/', include('likes.urls', namespace='likes')),
 
 
 ]

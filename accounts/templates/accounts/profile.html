@@ -18,20 +18,33 @@
         {% for post in user_posts %}
             <li>
                 <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+             <!-- CRUD Buttons -->
+                <div class="crud-buttons">
+                    <!-- Edit Button -->
+                    <a href="{% url 'blog:post_edit' post.pk %}" class="btn btn-warning btn-sm">Edit</a>
+
+                    <!-- Delete Button -->
+                    <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
 
             </li>
+            <hr>
         {% endfor %}
     </ul>
 {% else %}
     <p>You have not created any posts yet.</p>
 {% endif %}<br>
     <hr>
-
+<a href="{% url 'likes:profile_favorites' %}">
+    <button>View My Favorite Posts</button>
+  </a>
+    <hr>
     <a href="{% url 'comments:pending_comments' %}" class="btn btn-primary">View Pending Comments</a><br>
     <hr>
     <a href="{% url 'accounts:password_change' %}" class="btn">Change Password</a><br>
     <hr>
     <a href="{% url 'accounts:profile_update' %}">Update Profile</a>
+    <a href="{% url 'blog:post_create' %}">Create Post</a>
 
 
 

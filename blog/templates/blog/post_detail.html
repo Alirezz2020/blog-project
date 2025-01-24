@@ -18,10 +18,15 @@
                 Draft
             {% endif %}
         </p>
-        <p>Content{{ post.content }}</p>
+        <p>Content : {{ post.content }}</p>
         <p>Published: {{ post.published }}</p>
         <p> Created at :{{ post.created_at|date:"M d, Y" }}</p>
         <p>Updated at: {{ post.updated_at|date:"M d, Y" }}</p>
+     <p><strong>Tags:</strong>
+        {% for tag in post.tags.all %}
+            <a  class="badge bg-success">{{ tag.name }}</a>
+        {% endfor %}
+    </p>
     </li>
 
 <h2>Comments</h2>
@@ -87,7 +92,43 @@
   {% endfor %}
 </ul>
     <hr>
+   <!-- Pagination Controls for Comments -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if comments.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ comments.previous_page_number }}">previous</a>
+            {% endif %}
 
+            <span class="current">
+                Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
+            </span>
+
+            {% if comments.has_next %}
+                <a href="?page={{ comments.next_page_number }}">next</a>
+                <a href="?page={{ comments.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+<!-- Pagination Controls for Replies -->
+<div class="pagination">
+    <span class="step-links">
+        {% if replies.has_previous %}
+            <a href="?replies_page=1">&laquo; first</a>
+            <a href="?replies_page={{ replies.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Replies Page {{ replies.number }} of {{ replies.paginator.num_pages }}.
+        </span>
+
+        {% if replies.has_next %}
+            <a href="?replies_page={{ replies.next_page_number }}">next</a>
+            <a href="?replies_page={{ replies.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 <!-- Add a Top-Level Comment -->
 <h3>Leave a Comment</h3>
 <form action="{% url 'comments:add_comment' post.id %}" method="post">
@@ -99,3 +140,6 @@
 
 
 {% endblock %}
+
+
+
